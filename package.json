@@ -1,0 +1,47 @@
+{
+  "name": "demo-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.9.9",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.14",
+    "@react-spring/parallax": "^9.7.3",
+    "apollo-upload-client": "^18.0.1",
+    "autoprefixer": "^10.4.7",
+    "axios": "^0.27.2",
+    "dotenv": "^16.4.5",
+    "framer-motion": "^6.5.1",
+    "graphql": "^16.8.1",
+    "gsap": "^3.10.4",
+    "locomotive-scroll": "^4.1.4",
+    "next": "12.2.0",
+    "next-themes": "^0.3.0",
+    "particles-bg": "^2.5.5",
+    "postcss": "^8.4.14",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.12.0",
+    "react-locomotive-scroll": "^0.2.0",
+    "react-transition-group": "^4.4.5",
+    "sass": "^1.72.0",
+    "styled-components": "^6.1.8",
+    "swiper": "^11.0.7",
+    "tailwindcss": "^3.1.4"
+  },
+  "devDependencies": {
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.0"
+  }
+}
