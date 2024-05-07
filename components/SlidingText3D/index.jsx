@@ -16,7 +16,7 @@ function usePrevious(value) {
 }
 
 export default function SlidingText3D({ currentRoute }) {
-  const { Y } = useYContext()
+  const { Y } = useYContext();
   const { resolvedTheme } = useTheme();
   const divRef = useRef(null);
   const firstText = useRef(null);
@@ -24,6 +24,8 @@ export default function SlidingText3D({ currentRoute }) {
   const slider = useRef(null);
   let xPercent = 0;
   const [directionn, setDir] = useState(-1);
+  const [fontColor, setFontColor] = useState('rgb(243 244 246)');
+  const [fontTextShadow, setFontTextShadow] = useState('black 1px 1px 2px ');
   const prevY = usePrevious(Y);
 
   useLayoutEffect(() => {
@@ -32,8 +34,18 @@ export default function SlidingText3D({ currentRoute }) {
     } else {
       setDir(1);
     }
+    resolvedTheme === 'light'
+      ? setFontColor('rgb(243 244 246)')
+      : setFontColor('rgb(31 41 55)');
+
+      
+    resolvedTheme === 'light'
+      ? setFontTextShadow('black 1px 1px 2px ')
+      : setFontTextShadow('white 1px 1px 0, white -1px -1px 0,  white -1px 1px 0, white 1px -1px 0 ');
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Y]);
+  }, [resolvedTheme, Y]);
 
   let direction;
 
@@ -66,13 +78,8 @@ export default function SlidingText3D({ currentRoute }) {
     requestAnimationFrame(animate);
     xPercent += 0.1 * directionn;
   };
-  const fontColor =
-    resolvedTheme === 'light' ? 'rgb(243 244 246)' : 'rgb(31 41 55)';
-  const fontTextShadow =
-    resolvedTheme === 'light'
-      ? 'black 1px 1px 2px '
-      : 'white 1px 1px 0, white -1px -1px 0,  white -1px 1px 0, white 1px -1px 0 ';
 
+  
   return (
     <div ref={divRef} className={style.main}>
       <div ref={slider} className={style.slider}>
@@ -82,7 +89,7 @@ export default function SlidingText3D({ currentRoute }) {
             fontWeight: 900,
             textShadow: fontTextShadow,
             textTransform: 'uppercase',
-            fontSize: currentRoute === '/'? '90px': '0',
+            fontSize: currentRoute === '/' ? '90px' : '0',
           }}
           ref={firstText}
         >
