@@ -13,10 +13,10 @@ const TransitionComponent = ({ children }) => {
     <SwitchTransition>
       <Transition
         key={router.pathname}
-        timeout={500}
+        timeout={300}
         onEnter={(node) => {
           toggleCompleted(false);
-          gsap.set(node, { autoAlpha: 0, scale: 0.8, xPercent: -100 });
+          gsap.set(node, { autoAlpha: 0, scale: 1.1, xPercent: -100 });
           gsap
             .timeline({
               paused: true,

@@ -46,7 +46,7 @@ export default function ProductFilter({ products }) {
             }
             label={item.title}
             id={item.id}
-            key={item.id}
+            key={item.title}
             value={item.title}
             onChange={brandsChange}
           />

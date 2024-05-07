@@ -7,14 +7,19 @@ import 'swiper/css/navigation';
 
 import { FreeMode, Pagination } from 'swiper/modules';
 import CategoryItem from './categoryItem';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 export default function Caroucel({ categories }) {
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up('md'));
+  const tablet = useMediaQuery(theme.breakpoints.only('sm'));
+  const responsive = desktop ? 3 : tablet ? 2 : 1;
   return (
     <div
     >
       <SwiperComponent
         loop={true}
-        slidesPerView={3}
+        slidesPerView={responsive}
         spaceBetween={90}
         freeMode={true}
         pagination={{

@@ -4,18 +4,19 @@ import { client } from '../../../graphql/client';
 import { gql } from '@apollo/client';
 import GoBackBtn from '../../../components/GoBackButton';
 import { useTheme } from 'next-themes';
+import { useRef } from 'react';
 
 export default function ProductPage({ product }) {
   const { resolvedTheme } = useTheme();
   let shadow = resolvedTheme === 'light' ? '#6CF9F8' : '#F739C0';
-
+  const nodeRef = useRef(null);
   return (
     <>
       <Head>
         <title>GW - {product.data.products_by_pk.title}</title>
       </Head>
 
-      <Grid sx={{ pl: 3 }} container spacing={3}>
+      <Grid nodeRef={nodeRef} sx={{ pl: 3 }} container spacing={3}>
         <Grid
           sx={{ mt: 20 }}
           item
@@ -24,10 +25,9 @@ export default function ProductPage({ product }) {
           className='animate__animated animate__fadeInLeft'
         >
           <img
-            style={{ maxHeight: 400, 
+            style={{
+              maxHeight: 400,
               filter: `drop-shadow(0 0 0.75rem ${shadow})`,
-              
-              
             }}
             src={product.data.products_by_pk.img}
             alt={product.data.products_by_pk.img}

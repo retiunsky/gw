@@ -1,18 +1,22 @@
 import style from './style.module.scss';
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useTheme } from 'next-themes';
+import { useRouter } from 'next/router';
+import { useYContext } from '../../contexts/YContext';
 
 function usePrevious(value) {
   const ref = useRef();
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 
-export default function SlidingText3D({ Y }) {
+export default function SlidingText3D({ currentRoute }) {
+  const { Y } = useYContext()
   const { resolvedTheme } = useTheme();
   const divRef = useRef(null);
   const firstText = useRef(null);
@@ -21,18 +25,19 @@ export default function SlidingText3D({ Y }) {
   let xPercent = 0;
   const [directionn, setDir] = useState(-1);
   const prevY = usePrevious(Y);
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (Y > prevY) {
       setDir(-1);
     } else {
       setDir(1);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Y]);
 
-let direction
+  let direction;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     gsap.to(slider.current, {
       scrollTrigger: {
@@ -45,6 +50,7 @@ let direction
       },
       x: '-500px',
     });
+
     requestAnimationFrame(animate);
   }, [directionn]);
 
@@ -54,12 +60,14 @@ let direction
     } else if (xPercent > 0) {
       xPercent = -100;
     }
+
     gsap.set(firstText.current, { xPercent: xPercent });
     gsap.set(secondText.current, { xPercent: xPercent });
     requestAnimationFrame(animate);
     xPercent += 0.1 * directionn;
   };
-  const fontColor = resolvedTheme === 'light' ? 'rgb(243 244 246)' : 'rgb(31 41 55)';
+  const fontColor =
+    resolvedTheme === 'light' ? 'rgb(243 244 246)' : 'rgb(31 41 55)';
   const fontTextShadow =
     resolvedTheme === 'light'
       ? 'black 1px 1px 2px '
@@ -74,11 +82,11 @@ let direction
             fontWeight: 900,
             textShadow: fontTextShadow,
             textTransform: 'uppercase',
-            fontSize: '90px',
+            fontSize: currentRoute === '/'? '90px': '0',
           }}
           ref={firstText}
         >
-          IBM GOOGLE INTEL QUALCOM NIKON 
+          IBM GOOGLE INTEL QUALCOM NIKON
         </p>
         <p
           style={{

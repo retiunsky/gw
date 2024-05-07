@@ -1,16 +1,15 @@
 import Head from 'next/head';
 import Hero from '../components/Hero';
-import AboutNew from '../components/AboutNew';
+import Categories from '../components/Categories';
 import { client } from '../graphql/client';
 import { GET_CATEGORIES } from '../graphql/GET_CATEGORIES';
-import SlidingText3D from '../components/SlidingText3D';
+import { useYContext } from '../contexts/YContext';
 import { useLocomotiveScroll } from 'react-locomotive-scroll';
-import { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
+import { useEffect } from 'react';
 
 export default function Home(props) {
   const { scroll } = useLocomotiveScroll();
-  const [Y, setY] = useState(0);
+  const { setY } = useYContext()
 
   useEffect(() => {
     if (scroll) {
@@ -18,10 +17,10 @@ export default function Home(props) {
 
       scroll.on('scroll', function (t) {
         document.documentElement.setAttribute('data-direction', t.direction);
-        // console.log('t-lscroll', t.scroll.y);
         setY(t.scroll.y);
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scroll]);
 
   return (
@@ -32,10 +31,7 @@ export default function Home(props) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Hero heading='Gaming world' description='For you' />
-
-      <AboutNew categories={props} />
-      <SlidingText3D Y={Y} />
-      <Footer />
+      <Categories categories={props} />
     </>
   );
 }

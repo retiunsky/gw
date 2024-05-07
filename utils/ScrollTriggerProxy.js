@@ -3,7 +3,7 @@ import gsap from "gsap/dist/gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { useEffect, useState } from "react";
 
-const scrollTriggerProxy = () => {
+const ScrollTriggerProxy = () => {
   const { scroll } = useLocomotiveScroll();
   gsap.registerPlugin(ScrollTrigger);
 
@@ -40,4 +40,4 @@ const scrollTriggerProxy = () => {
   return null;
 };
 
-export default scrollTriggerProxy;
+export default ScrollTriggerProxy;

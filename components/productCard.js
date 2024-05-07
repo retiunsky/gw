@@ -9,7 +9,7 @@ export default function ProductCard({ product }) {
   const theme = useTheme();
   const {resolvedTheme} = nextUseTheme();
   const [isLoading, setLoading] = useState(true);
-  const [hoverColor, setHoverColor] = useState('rgba(243, 244, 246, 0.1)');
+  const [hoverColor, setHoverColor] = useState('rgb(31 41 55)');
   const [hoverBoxShadow, setHoverBoxShadow] = useState();
 
   const fontTextColor =
@@ -33,12 +33,15 @@ export default function ProductCard({ product }) {
   }, [theme]);
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+        
+        <Grid  item xs={12} sm={6} md={4} lg={3} xl={2}>
+         
       <Link
         href={`/products/product/${product.id}`}
         style={{ textDecoration: 'none' }}
       >
-        <Card
+        <Card style={{
+              zIndex: 200}}
           onMouseDown={colorHandler}
           onMouseLeave={colorHandlerUp}
           component={motion.div}
@@ -50,7 +53,7 @@ export default function ProductCard({ product }) {
           sx={{
             pt: 2,
             height: '350px',
-            backgroundColor: hoverColor,
+            backgroundColor:   resolvedTheme === 'dark' ? 'rgb(31 41 55)' : 'rgb(243 244 246)' ,
             boxShadow: resolvedTheme === 'light' 
             ? `0 4px 15px 0 #6CF9F8`
             : `0 4px 15px 0 #F739C0`
@@ -65,8 +68,9 @@ export default function ProductCard({ product }) {
             },
           }}
         >
-          <CardMedia
+          <CardMedia 
             style={{
+              zIndex: 100,
               maxHeight: '280px',
               width: 'auto',
               cursor: 'pointer',

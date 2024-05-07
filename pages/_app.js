@@ -1,7 +1,10 @@
 import '../styles/globals.css';
 import '../styles/styles.scss';
 import '../styles/baloons.css';
-import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
+import {
+  LocomotiveScrollProvider,
+  useLocomotiveScroll,
+} from 'react-locomotive-scroll';
 import { useEffect, useRef, useState } from 'react';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
 import ScrollTriggerProxy from '../utils/ScrollTriggerProxy';
@@ -16,14 +19,20 @@ import { ThemeProvider } from 'next-themes';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { dark } from '../styles/Themes';
 import { StyledEngineProvider } from '@mui/material/styles';
+import SlidingText3D from '../components/SlidingText3D';
+import Footer from '../components/Footer';
 
-function MyApp({ Component, pageProps, apollo = client }) {
+function MyApp({ Component, pageProps, apollo = client  }) {
+  const router = useRouter();
+  const currentRoute = router.pathname;
   const containerRef = useRef(null);
   const { asPath } = useRouter(); // With next/router
   const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    setIsClient(true);
+    setIsClient(true);   
   }, []);
+
   return (
     <ApolloProvider client={apollo}>
       <SortProvider>
@@ -65,6 +74,8 @@ function MyApp({ Component, pageProps, apollo = client }) {
                   ) : (
                     'WG LOADING...'
                   )}
+                  <SlidingText3D currentRoute={currentRoute} />
+                  {currentRoute === '/' ? <Footer /> : ''}
                 </main>
               </LocomotiveScrollProvider>
             </StyledEngineProvider>

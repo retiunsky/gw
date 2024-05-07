@@ -7,10 +7,13 @@ import Magnetic from './Magnetic';
 import { useTheme } from 'next-themes';
 import ThemeWithSystemButton from './ThemeButtonNew';
 import ProductSortButton from './productSortButton';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useFilterContext } from '../contexts/FilterContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGrip } from '@fortawesome/free-solid-svg-icons';
+import { createContext } from 'react';
 
-const Navbar = () => {
+const Navbar = (props) => {
   const { resolvedTheme } = useTheme();
   const { open, handleDrawerOpen, handleDrawerClose } = useFilterContext();
   const [Y, setY] = useState(0);
@@ -20,9 +23,8 @@ const Navbar = () => {
   const { scroll } = useLocomotiveScroll();
   const router = useRouter();
   const currentRoute = router.pathname;
-console.log('Y', Y);
+
   useEffect(() => {
-    // setY(0)
     if (navSize === '6rem') {
       if (resolvedTheme === 'light') {
         setColor('rgb(243 244 246)');
@@ -140,7 +142,6 @@ console.log('Y', Y);
               sx={{
                 pointerEvents: 'all',
                 cursor: 'pointer',
-                fontSize: '18px',
                 color: `${textColor}`,
                 textShadow: fontTextShadow,
                 paddingLeft: 2,
@@ -152,7 +153,28 @@ console.log('Y', Y);
               }}
               onClick={onCat}
             >
-              CATEGORIES
+              <Typography
+                sx={{
+                  display: { xs: 'none', sm: 'none', md: 'block' },
+                  fontSize: '18px',
+                }}
+              >
+                CATEGORIES
+              </Typography>
+
+              <Typography
+                sx={{
+                  display: { xs: 'block', sm: 'block', md: 'none' },
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faGrip}
+                  style={{
+                    fontSize: '20px',
+                    filter: `drop-shadow(${props.fontTextShadow})`,
+                  }}
+                />
+              </Typography>
             </Button>
           )}
 
@@ -160,31 +182,33 @@ console.log('Y', Y);
             textColor={textColor}
             fontTextShadow={fontTextShadow}
           />
-{currentRoute === '/newabout' ? '' : (<ul
-            style={{ color: `${textColor}` }}
-            className='hidden sm:flex relative'
-          >
-            <motion.li
-              whileTap={{ scale: 0.9, Y: 0 }}
-              className='text-xl p-4 uppercase'
+          {currentRoute === '/about' ? (
+            ''
+          ) : (
+            <ul
+              style={{ color: `${textColor}` }}
+              className='hidden sm:flex relative'
             >
-              <Magnetic>
-                <motion.h3
-                  whileTap={{ scale: 0.5, y: 0 }}
-                  style={{
-                    pointerEvents: 'all',
-                    color: `${textColor}`,
-                    cursor: 'pointer',
-                    textShadow: fontTextShadow,
-                  }}
-                 
-                >
-                  <a href='/newabout'>ABOUT</a>
-                </motion.h3>
-              </Magnetic>
-            </motion.li>
-          </ul>)}
-          
+              <motion.li
+                whileTap={{ scale: 0.9, Y: 0 }}
+                className='text-xl p-4 uppercase'
+              >
+                <Magnetic>
+                  <motion.h3
+                    whileTap={{ scale: 0.5, y: 0 }}
+                    style={{
+                      pointerEvents: 'all',
+                      color: `${textColor}`,
+                      cursor: 'pointer',
+                      textShadow: fontTextShadow,
+                    }}
+                  >
+                    <a href='/about'>ABOUT</a>
+                  </motion.h3>
+                </Magnetic>
+              </motion.li>
+            </ul>
+          )}
         </div>
       </div>
     </motion.nav>
