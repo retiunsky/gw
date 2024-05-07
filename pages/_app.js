@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps, apollo = client  }) {
                   ) : (
                     'WG LOADING...'
                   )}
-                  <SlidingText3D currentRoute={currentRoute} />
+                  {isClient ? <SlidingText3D currentRoute={currentRoute} /> : ''}
                   {currentRoute === '/' ? <Footer /> : ''}
                 </main>
               </LocomotiveScrollProvider>
